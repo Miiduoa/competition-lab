@@ -7,7 +7,8 @@
 | baseline | ≈0.022 | ≈0.221 |
 | v2 | ≈0.087–0.111 | ≈0.297 |
 | v3 | ≈0.21 | ≈0.333 |
+| v4 | ≈0.21（沿用 v3） | ≈0.373 |
 
 - 正式測試上傳約 **2026-11-04**
-- 詳細程式在備審工作區 `prep/competitions/aicup_2026/baseline_v3/`（資料集過大不進本 repo）
+- 程式：`prep/competitions/aicup_2026/baseline_v3/`、`baseline_v4/`（資料集不進本 repo）
 - **勿將本地分寫成官方成績或得獎**
