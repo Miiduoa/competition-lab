@@ -15,7 +15,7 @@
 | Kaggle Playground S6E9 EV | kuchinwei | Complete | Public **0.94540** |
 | Kaggriculture | kuchinwei | Complete | Public **600.0** |
 | DrivenData DaT Parkinson | demohan513 | Completed | Public **0.5591**（log loss↓越好） |
-| AI CUP 2026 Autumn Task1／2 | TEAM_10925／10926 | **已報名／建模中** | 本地 holdout 約 Task1≈0.09、Task2≈0.30（**非官方榜**） |
+| AI CUP 2026 Autumn Task1／2 | TEAM_10925／10926 | **已報名／建模中** | 約略本地 holdout Task1≈0.21（v3）、Task2≈0.373（v4）（**非官方榜**） |
 
 ## 目錄
 
@@ -25,7 +25,7 @@
 | [`kaggle_s6e9/`](kaggle_s6e9/) | EV 購買預測訓練腳本＋筆記（無 train/test 大檔） |
 | [`kaggriculture/`](kaggriculture/) | Agent `submission/*.py`＋筆記 |
 | [`drivendata_parkinsons/`](drivendata_parkinsons/) | 訓練腳本＋策略筆記（無醫學影像） |
-| [`aicup_2026/`](aicup_2026/) | `baseline`／`baseline_v2`／`baseline_v3` 程式＋STATUS（**無 1.3GB 資料**） |
+| [`aicup_2026/`](aicup_2026/) | `baseline`～`baseline_v4` 程式＋STATUS（**無 1.3GB 資料／無大模型權重**） |
 
 ## 資料下載（重要）
 
@@ -40,7 +40,7 @@
 - **S6E9**：表格分類；LGBM／CatBoost／XGB＋hill-climb 融合；時間／折驗證 OOF  
 - **Kaggriculture**：環境 agent（種植／澆水／收成／賣出策略迭代）  
 - **Parkinson**：醫學影像分類 baseline → 迭代提交（容器化）  
-- **AI CUP**：SGF 特徵／檢索／LightGBM 等；見各 baseline README  
+- **AI CUP**：SGF 特徵／檢索／LGB／CatBoost／XGB 等；見各 baseline README（本地 v4 Task2≈0.373，非榜）  
 - **RailFlow-DSS**：開放資料＋旅運負荷預測決策支援**企劃**（非已上線系統）
 
 ## License

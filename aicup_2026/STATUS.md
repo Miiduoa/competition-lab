@@ -1,6 +1,6 @@
 # AI CUP 2026 Autumn (AIdea) — 進度狀態
 
-更新：2026-09-18 12:30（台灣時間，UTC+8）
+更新：2026-09-18 15:33（台灣時間，UTC+8）
 
 隊伍：Task1 `TEAM_10925`｜Task2 `TEAM_10926`  
 報名 Email：demohan513@gmail.com
@@ -101,6 +101,72 @@ python3 task1_baseline.py && python3 task2_baseline.py
 cd baseline_v2 && bash run_all.sh
 ```
 
+
+
+## Baseline v3 — 已完成（本地驗證，非排行榜）
+
+路徑：`baseline_v3/`（見 `baseline_v3/README.md`、`IMPROVE_v3.md`）
+
+| 腳本 | 說明 |
+| --- | --- |
+| `features_v3.py` | ~192 維 SGF 特徵（joseki／中盤 n-gram／提子 proxy／執色條件） |
+| `task1_v3.py` | 雙 TF-IDF + ANN shortlist + rerank + 權重調參 |
+| `task2_v3.py` | LGB／CatBoost／HistGB／Ridge blend + 溫度校準 |
+| `run_all.sh` | 一鍵跑兩邊 |
+
+### Task1 v3 本地 holdout（**非排行榜**）
+
+- 主設定：每等級 15000 盤 → 150,000 盤；holdout 2,500 玩家（eval 1,750）、K=3
+- **mean Top-5 exp-decay ≈ 0.2112**（hit@1≈0.185｜hit@5≈0.323）
+- 對齊 v2 協定（2500／級、1200 人）：**≈ 0.2039**（對照 v2 ≈0.1108）
+- 輸出：`outputs/task1_v3_metrics.json`、`task1_v3_preds_sample.csv`、`task1_v3_matched_protocol_metrics.json`
+- 耗時 ≈ 13 分鐘（主設定，含權重調參）
+
+### Task2 v3 本地 holdout（**非排行榜**）
+
+- 每等級 20000 盤；約 20,305 個 query-set 例；玩家 train／valid／test
+- **blend 期望分數 mean ≈ 0.3329**（exact≈0.219；±1≈0.529）
+- 對照 v2 LGB ≈ **0.2972** → 有提升；**未達** 目標 0.35（見 `IMPROVE_v3.md`）
+- 輸出：`outputs/task2_v3_metrics.json`、`task2_v3_preds_sample.csv`；模型於 `baseline_v3/artifacts/`
+- 耗時 ≈ 29 分鐘（20k 設定）
+
+重跑：
+
+```bash
+cd baseline_v3 && bash run_all.sh
+```
+
+
+
+## Baseline v4 — 已完成（本地驗證，非排行榜）
+
+路徑：`baseline_v4/`（見 `baseline_v4/README.md`、`IMPROVE_v4.md`）
+
+| 腳本 | 說明 |
+| --- | --- |
+| `features_v4.py` | 重用 v3 稠密特徵 |
+| `task2_v4.py` | 25k／級 + TF-IDF/SVD + soft/ordinal + CatBoost/XGB + train+valid refit |
+
+### Task1
+
+- **未改動**；維持 v3 本地 mean Top-5 ≈ **0.2112**（非排行榜）
+
+### Task2 v4 本地 holdout（**非排行榜**）
+
+- 每等級 25000 盤；約 22,845 例；玩家 train／valid／test；Stage B refit
+- **Primary（CatBoost expected-score）≈ 0.3730**（exact≈0.256；±1≈0.574）
+- Blend refit ≈ **0.3700**；對照 v3 blend ≈ **0.3329**
+- **已達** 本地目標 ≥0.35（仍非官方榜）
+- 輸出：`outputs/task2_v4_metrics.json`、`task2_v4_preds_sample.csv`；模型於 `baseline_v4/artifacts/`
+- 耗時 ≈ 29 分鐘（25k + 雙階段訓練）
+
+重跑：
+
+```bash
+cd baseline_v4 && bash run_task2.sh 25000
+```
+
+
 ## AIdea Data 分頁（登入後，2026-09-18）
 
 登入帳號 `demohan513` 後，Task1／Task2 的 **Data** 分頁已開通：
@@ -128,8 +194,8 @@ AIdea：
 ## 下一步
 
 1. **等 2026-11-04** 測試集與官方答案檔格式；對齊 submission schema 後再上傳。
-2. v2 已落地（TF-IDF／稠密特徵／LightGBM）；見 `IMPROVE_v2.md`。
-3. Task1：FAISS／對比學習、執色條件開局；Task2：ordinal／更多盤。
+2. v4 已落地（見 `IMPROVE_v4.md`）：Task1 維持 v3 ≈0.21；**Task2 本地 primary ≈0.3730**（≥0.35）。
+3. Task2 若續推天花板：輕量棋盤 CNN、真正 soft ordinal CE、OOF stacking（勿再加 train-gallery kNN）。
 4. 對齊 2026-11-04 官方 submission schema（教學 zip 為往年格式）。
 5. 保留每日 ≤5 次上傳額度；本地 CV 穩定後再送測。
 

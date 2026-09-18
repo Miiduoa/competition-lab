@@ -1,0 +1,116 @@
+{
+  "task": "task2_predicting_rank_v4",
+  "metric": "exact=1_pm1=1/e_else=0",
+  "majority": {
+    "mean_score": 0.193450807999405,
+    "exact_acc": 0.12742321934219125,
+    "within1_acc": 0.30690481376606404,
+    "n": 4591
+  },
+  "lightgbm_expected_score": {
+    "mean_score": 0.35478182525757035,
+    "exact_acc": 0.24003485079503376,
+    "within1_acc": 0.5519494663472011,
+    "n": 4591
+  },
+  "lgb_soft_expected_score": {
+    "mean_score": 0.3576317031129651,
+    "exact_acc": 0.22413417556087997,
+    "within1_acc": 0.5870180788499237,
+    "n": 4591
+  },
+  "lgb_reg_expected_score": {
+    "mean_score": 0.3079963773797914,
+    "exact_acc": 0.1773034197342627,
+    "within1_acc": 0.5325637116096711,
+    "n": 4591
+  },
+  "catboost_expected_score": {
+    "mean_score": 0.3729837127484127,
+    "exact_acc": 0.25615334349814856,
+    "within1_acc": 0.5737312132433021,
+    "n": 4591
+  },
+  "xgboost_expected_score": {
+    "mean_score": 0.3604643712105097,
+    "exact_acc": 0.23546068394685254,
+    "within1_acc": 0.5752559355260292,
+    "n": 4591
+  },
+  "ridge_expected_score": {
+    "mean_score": 0.3144619782614167,
+    "exact_acc": 0.1914615552167284,
+    "within1_acc": 0.5258113700718797,
+    "n": 4591
+  },
+  "blend_stageA_train_only": {
+    "mean_score": 0.3625071004762283,
+    "exact_acc": 0.23894576345022872,
+    "within1_acc": 0.5748203005881072,
+    "n": 4591
+  },
+  "blend_expected_score": {
+    "mean_score": 0.37002008217959814,
+    "exact_acc": 0.2491831844913962,
+    "within1_acc": 0.5776519276846003,
+    "n": 4591
+  },
+  "fixed_blend_expected_score": {
+    "mean_score": 0.357883302200795,
+    "exact_acc": 0.23175778697451535,
+    "within1_acc": 0.5746024831191462,
+    "n": 4591
+  },
+  "primary_model": "catboost_expected_score",
+  "primary": {
+    "mean_score": 0.3729837127484127,
+    "exact_acc": 0.25615334349814856,
+    "within1_acc": 0.5737312132433021,
+    "n": 4591
+  },
+  "temperatures": {
+    "lgb": 1.3,
+    "lgb_soft": 0.7,
+    "lgb_reg": 0.5,
+    "cat": 0.7,
+    "xgb": 1.8,
+    "ridge": 0.85
+  },
+  "blend_weights": {
+    "lgb": 0.44570102036717274,
+    "lgb_soft": 0.12043678947475905,
+    "lgb_reg": 0.017731213806434245,
+    "cat": 0.19122770314170015,
+    "xgb": 0.13993570989956838,
+    "ridge": 0.08496756331036544
+  },
+  "ordinal_sigmas": {
+    "lgb_reg": 0.5,
+    "ridge": 0.95
+  },
+  "majority_rank": "A",
+  "feature_dim": 1602,
+  "sample": {
+    "max_games_per_rank": 25000,
+    "games_per_example": 5,
+    "max_examples_per_player": 6,
+    "seed": 42,
+    "n_games_loaded": 250000,
+    "n_examples": 22845,
+    "n_train": 15997,
+    "n_valid": 2257,
+    "n_test": 4591,
+    "n_train_players": 4341,
+    "n_valid_players": 620,
+    "n_test_players": 1241,
+    "valid_blend_score": 0.3657624720592611,
+    "tfidf_svd_dim": 48,
+    "refit_train_valid": true
+  },
+  "v3_ref_local": {
+    "blend_expected_mean": 0.3329,
+    "note": "v3 local; not leaderboard"
+  },
+  "elapsed_sec": 1719.54,
+  "note": "Local player-grouped holdout only — NOT official AIdea leaderboard. Upload ~2026-11-04."
+}

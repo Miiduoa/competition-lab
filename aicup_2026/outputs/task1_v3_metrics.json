@@ -1,0 +1,48 @@
+{
+  "task": "task1_identifying_players_v3",
+  "metric": "top5_exponential_decay",
+  "mean_score": 0.211194080255045,
+  "hit_at_1": 0.18457142857142858,
+  "hit_at_5": 0.32285714285714284,
+  "n_queries": 1750,
+  "n_candidates": 2500,
+  "model": {
+    "dense_dim": 192,
+    "tfidf_max_features": 16000,
+    "pat_tfidf_max_features": 12000,
+    "shortlist": 300,
+    "gallery_cleaning": true,
+    "color_conditioned_dense": true,
+    "blend_weights": {
+      "dense": 0.11945327272059293,
+      "dense_color": 0.14418252774376247,
+      "tfidf": 0.25045664445912597,
+      "pat_tfidf": 0.04804103145529682,
+      "opening16_jaccard": 0.17460847442990102,
+      "opening12_jaccard": 0.010228523243646889,
+      "opening8_jaccard": 0.029218993826079634,
+      "first": 0.016316072499948396,
+      "color": 0.03923298147742399,
+      "mean_moves": 0.16826147814422185
+    },
+    "weight_tuning": true,
+    "n_tune_players": 750,
+    "n_eval_players": 1750
+  },
+  "sample": {
+    "max_games_per_rank": 15000,
+    "min_games_per_player": 8,
+    "query_k": 3,
+    "max_players": 2500,
+    "seed": 42,
+    "n_games_loaded": 150000,
+    "n_players_loaded": 7580
+  },
+  "v2_ref_local": {
+    "mean_score_main": 0.0868,
+    "mean_score_matched_protocol": 0.1108,
+    "note": "v2 local holdout; not leaderboard"
+  },
+  "elapsed_sec": 776.38,
+  "note": "Local holdout validation only — NOT an official AIdea leaderboard score."
+}

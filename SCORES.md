@@ -1,4 +1,4 @@
-# 競賽分數表（據實｜更新 2026-09-18）
+# 競賽分數表（據實｜更新 2026-09-18 下午）
 
 > 僅記錄**已確認的公開分／提交狀態**。本地 CV／holdout 另標「非官方」。  
 > **無假造獎項、無虛構名次。**
@@ -9,8 +9,8 @@
 | 2 | Playground S6E9 Predicting EV Purchases | Kaggle | kuchinwei | Complete | **0.94540** | AUC↑ | v2＝v3 公開分相同；OOF 約 0.94540–0.94543 |
 | 3 | Kaggriculture | Kaggle | kuchinwei | Complete | **600.0** | 越高越好（賽制分） | v2／v3 公開分皆 600.0（以平台為準） |
 | 4 | DaT Parkinson's Challenge | DrivenData | demohan513 | Completed | **0.5591** | log loss↓ | 正式提交 322440；額度用完 |
-| 5 | AI CUP 2026 Autumn Task1 | AIdea | TEAM_10925 | 已報名／建模中 | （尚無官方測評） | 依簡章 | 本地 v2 holdout ≈ **0.0868**（非榜） |
-| 6 | AI CUP 2026 Autumn Task2 | AIdea | TEAM_10926 | 已報名／建模中 | （尚無官方測評） | 依簡章 | 本地 v2 LightGBM ≈ **0.2972**（非榜） |
+| 5 | AI CUP 2026 Autumn Task1 | AIdea | TEAM_10925 | 已報名／建模中 | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.21**（v3；非榜） |
+| 6 | AI CUP 2026 Autumn Task2 | AIdea | TEAM_10926 | 已報名／建模中（v4） | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.373**（v4 primary；非榜） |
 
 ## 連結
 
