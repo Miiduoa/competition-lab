@@ -1,0 +1,39 @@
+# Large / sensitive data — never commit
+**/data/**/*.csv
+**/data/**/*.parquet
+**/data/**/*.tar
+**/data/**/*.tar.xz
+**/data/**/*.zip
+**/data/**/*.nii*
+**/data/**/*.dcm
+!**/data/README.md
+
+# Model artifacts / caches
+**/artifacts/
+**/__pycache__/
+*.pyc
+*.joblib
+*.cbm
+*.pkl
+*.pt
+*.pth
+catboost_info/
+.venv/
+venv/
+
+# Secrets
+.env
+**/secrets.toml
+**/kaggle.json
+**/*token*
+**/*credential*
+
+# PII / admissions-only (if accidentally copied)
+**/學生證*
+**/身分證*
+**/在學證明*
+**/同意書*
+**/*親簽*
+
+# OS
+.DS_Store
