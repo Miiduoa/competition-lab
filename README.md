@@ -3,7 +3,7 @@
 顧晉瑋（Providence IM）｜Email: demohan513@gmail.com｜Kaggle: [kuchinwei](https://www.kaggle.com/kuchinwei)
 
 本 repo 彙整**真實參與**的競賽筆記、分數表與精簡程式碼。  
-**誠實聲明：尚未得獎；不宣稱冠軍或官方名次。** 本地驗證分數 ≠ 官方排行榜。
+本 repo 只記錄實際參與狀態；**本地驗證與官方榜成績分開標示**，避免把兩者混在一起。
 
 ## 分數總表（公開／據實）
 
