@@ -1,5 +1,7 @@
 # competition-lab｜線上競賽筆記與可重現程式
 
+[![smoke](https://github.com/Miiduoa/competition-lab/actions/workflows/smoke.yml/badge.svg)](https://github.com/Miiduoa/competition-lab/actions/workflows/smoke.yml)
+
 顧晉瑋（Providence IM）｜Email: demohan513@gmail.com｜Kaggle: [kuchinwei](https://www.kaggle.com/kuchinwei)
 
 本 repo 彙整**真實參與**的競賽筆記、分數表與精簡程式碼。  
