@@ -37,3 +37,5 @@ venv/
 
 # OS
 .DS_Store
+**/*.npy
+**/_smoke_data/

@@ -24,7 +24,10 @@ jobs:
       - run: pip install -r kaggle_s6e9/requirements.txt
 
       - name: Compile tracked Python
-        run: python -m compileall -q aicup_2026 drivendata_parkinsons kaggle_s6e9 kaggriculture
+        run: python -m compileall -q aicup_2026 drivendata_parkinsons kaggle_s6e9 kaggle-s6e10 kaggriculture
 
       - name: Run synthetic Kaggle pipeline
         run: python kaggle_s6e9/train_submit.py --smoke --model hgb --folds 2
+
+      - name: Run synthetic S6E10 pipeline
+        run: python kaggle-s6e10/train.py --smoke --models lgbm --folds 2
