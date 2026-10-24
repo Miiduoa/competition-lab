@@ -39,3 +39,4 @@ venv/
 .DS_Store
 **/*.npy
 **/_smoke_data/
+kaggle-s6e10/outputs/*.csv

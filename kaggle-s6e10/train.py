@@ -628,6 +628,7 @@ def write_sub(ids, pred, path: Path, sample: pd.DataFrame):
 
 
 def main():
+    global DATA_DIR, ORIG_DIR, OUT_DIR
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--models", default="lgbm,xgb,cat")
@@ -637,15 +638,17 @@ def main():
     ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
     t0 = time.time()
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    sub_root = ROOT
     if args.smoke:
-        global DATA_DIR, ORIG_DIR
         DATA_DIR = ROOT / "_smoke_data"
         ORIG_DIR = DATA_DIR / "original"
+        OUT_DIR = DATA_DIR / "outputs"
+        sub_root = DATA_DIR
         generate_synthetic()
         args.rounds = min(args.rounds, 80)
         args.es = min(args.es, 20)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     tr = pd.read_csv(DATA_DIR / "train.csv")
     te = pd.read_csv(DATA_DIR / "test.csv")
@@ -755,18 +758,17 @@ def main():
 
     ids = te[ID_COL]
     write_sub(ids, best_test, OUT_DIR / "submission_blend.csv", sample)
-    write_sub(ids, best_test, ROOT / "submission_blend.csv", sample)
+    write_sub(ids, best_test, sub_root / "submission_blend.csv", sample)
     write_sub(ids, tests[best_single], OUT_DIR / f"submission_{best_single}.csv", sample)
-    write_sub(ids, tests[best_single], ROOT / f"submission_{best_single}.csv", sample)
+    write_sub(ids, tests[best_single], sub_root / f"submission_{best_single}.csv", sample)
     rest = sorted(singles, key=singles.get, reverse=True)
     extra = next((m for m in rest if m != best_single), None)
     if extra is not None:
         write_sub(ids, tests[extra], OUT_DIR / f"submission_{extra}.csv", sample)
-        write_sub(ids, tests[extra], ROOT / f"submission_{extra}.csv", sample)
+        write_sub(ids, tests[extra], sub_root / f"submission_{extra}.csv", sample)
 
-    # recommended pointer
     rec = pd.read_csv(OUT_DIR / "submission_blend.csv")
-    rec.to_csv(ROOT / "submission.csv", index=False)
+    rec.to_csv(sub_root / "submission.csv", index=False)
     rec.to_csv(OUT_DIR / "submission.csv", index=False)
 
     summary = {
