@@ -1,6 +1,7 @@
 # Large / sensitive data — never commit
 **/data/**/*.csv
 **/data/**/*.parquet
+**/outputs/**/*.parquet
 **/data/**/*.tar
 **/data/**/*.tar.xz
 **/data/**/*.zip
@@ -37,3 +38,4 @@ venv/
 
 # OS
 .DS_Store
+outputs/cv_results_smoke.json

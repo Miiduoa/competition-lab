@@ -1,0 +1,23 @@
+{
+  "local_gpu_cv": null,
+  "reason": "This environment has no GPU; Qwen3-8B LoRA was not trained here.",
+  "host_tfidf_grouped_cv": 0.3404,
+  "estimated_lora_grouped_cv": 0.55,
+  "estimated_blend_grouped_cv": 0.56,
+  "estimated_public_lb": 0.53,
+  "estimated_public_lb_range": [0.50, 0.58],
+  "comparables": {
+    "qwen3_8b_lora_train_only": {"grouped_cv": 0.443, "public_lb": 0.466},
+    "qwen3_8b_lora_plus_public_pool": {"grouped_cv": 0.576, "public_lb": 0.538},
+    "lora_plus_ngram_blend": {"grouped_cv": 0.59, "public_lb": 0.544}
+  },
+  "note": "Public pool-trained grouped CV runs about 0.03-0.04 above public LB. In-notebook 4-bit two-stage should sit near the pool LoRA band if extra data is attached.",
+  "bronze": {
+    "rule": "Featured, 1000+ teams: bronze = top 10%",
+    "teams_public": 2928,
+    "bronze_rank": 293,
+    "public_lb_top49": 0.636,
+    "score_at_rank_293": null,
+    "score_at_rank_293_note": "Kaggle public table only lists ranks 1-49 (all >= 0.636 on 2026-10-24). Rank 293 is unpublished. Public LoRA notebooks at 0.54-0.64 sit well above a plausible bronze line; a conservative score guess for rank ~293 is 0.48-0.55."
+  }
+}
