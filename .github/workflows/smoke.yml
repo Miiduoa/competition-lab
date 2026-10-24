@@ -24,7 +24,24 @@ jobs:
       - run: pip install -r kaggle_s6e9/requirements.txt
 
       - name: Compile tracked Python
-        run: python -m compileall -q aicup_2026 drivendata_parkinsons kaggle_s6e9 kaggriculture
+        run: python -m compileall -q aicup_2026 drivendata_parkinsons kaggle_s6e9 kaggriculture kaggle-name-that-llm
 
       - name: Run synthetic Kaggle pipeline
         run: python kaggle_s6e9/train_submit.py --smoke --model hgb --folds 2
+
+  name-that-llm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: kaggle-name-that-llm/requirements.txt
+
+      - run: pip install -r kaggle-name-that-llm/requirements.txt
+
+      - name: Synthetic Name That LLM pipeline
+        run: python kaggle-name-that-llm/scripts/train_cv.py --smoke --folds 2

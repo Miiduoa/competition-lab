@@ -28,6 +28,7 @@
 | [`kaggriculture/`](kaggriculture/) | Agent `submission/*.py`＋筆記 |
 | [`drivendata_parkinsons/`](drivendata_parkinsons/) | 訓練腳本＋策略筆記（無醫學影像） |
 | [`aicup_2026/`](aicup_2026/) | `baseline`～`baseline_v4` 程式＋STATUS（**無 1.3GB 資料／無大模型權重**） |
+| [`kaggle-name-that-llm/`](kaggle-name-that-llm/) | Name That LLM 文體／n-gram notebook＋分組 CV（競賽 csv 不進 git） |
 
 ## 資料下載（重要）
 

@@ -1,0 +1,37 @@
+{
+  "used_real_data": true,
+  "n_train": 2699,
+  "n_test": 3,
+  "n_extra": 0,
+  "metric": "balanced_accuracy",
+  "cv": "StratifiedGroupKFold by prompt_id",
+  "overall": 0.340422570221228,
+  "fold_scores": [
+    0.3189016602809706,
+    0.3962962962962963,
+    0.3259259259259259,
+    0.3277777777777777,
+    0.3333333333333333
+  ],
+  "per_class": {
+    "gpt-5.5": 0.32666666666666666,
+    "gpt-5.6-luna": 0.24666666666666667,
+    "gpt-5.6-sol": 0.20666666666666667,
+    "gpt-5.6-terra": 0.2,
+    "gpt-6-astra": 0.5266666666666666,
+    "gemini-3.1-pro-preview": 0.6533333333333333,
+    "gemini-3.6-flash": 0.3466666666666667,
+    "gemini-3.7-flash": 0.37333333333333335,
+    "gemini-3.8-flash": 0.36,
+    "claude-fable-5": 0.14093959731543623,
+    "claude-opus-4-6": 0.48,
+    "claude-opus-4-8": 0.21333333333333335,
+    "claude-opus-5": 0.5266666666666666,
+    "claude-sonnet-5": 0.38,
+    "qwen3.8-max": 0.47333333333333333,
+    "glm-5.3": 0.18666666666666668,
+    "glm-5.3-flash": 0.20666666666666667,
+    "kimi-k3": 0.28
+  },
+  "note": "Host-train mirror only. Not a public leaderboard score."
+}
