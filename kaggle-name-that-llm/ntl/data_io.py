@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pandas as pd
-
-from .pipeline import find_test_path, find_train_path, load_extra_frames, load_table, normalize_frame
+from .extra import load_and_clean_extra
+from .pipeline import find_test_path, find_train_path, load_table, normalize_frame
 
 
 def load_competition(
@@ -35,8 +34,5 @@ def load_competition(
     if data_dir is not None:
         roots.append(data_dir / "external")
     roots.append("/kaggle/input")
-    extra = load_extra_frames(roots)
-    if len(extra):
-        extra = extra[~extra["text"].isin(set(train["text"]))].reset_index(drop=True)
-        extra = extra[~extra["id"].isin(set(test["id"]))].reset_index(drop=True)
+    extra = load_and_clean_extra(roots, train, test_ids=test["id"].astype(str), max_rows=16_000)
     return train, test, extra

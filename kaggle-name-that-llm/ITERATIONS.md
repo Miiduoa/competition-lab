@@ -1,34 +1,29 @@
 # 迭代計畫
 
-公開榜（2026-10-24 快照，約 2,938 隊）：榜首 **0.700**；公開 notebook 常見銅牌附近約 **0.62–0.64**。官方 starter（字詞 TF-IDF + 邏輯迴歸）約 **0.322**。純 CPU n-gram 公開約 **0.35–0.42**；目前能穩定過 0.53 的路線幾乎都是「公開加料池 + LoRA 分類器」。
+公開榜（2026-10-24）：榜首 **0.703**；前 49 名 ≥ **0.636**。約 2,928 隊。Featured 銅牌 = 前 10% ≈ **第 293 名**（該名分數未公布，估計約 0.48–0.55）。
 
-## 已實作：迭代 1（本目錄預設提交）
+## 迭代 1（已實作，CPU 備援）
 
-字元+詞+詞形 TF-IDF + 平衡邏輯迴歸 + 折內標點合法性軟懲罰 + 可選加料池。本地官方 train 鏡像 5-fold 分組 CV **0.340**。
+字元+詞+詞形 TF-IDF + 平衡邏輯迴歸 + 標點軟懲罰。本地分組 CV **0.340**，預期公開榜約 0.35。不夠銅牌。
 
-- 驗證：`StratifiedGroupKFold` 依 `prompt_id`（隨機 K-fold 會嚴重低估）
-- 執行環境：Kaggle **CPU、Internet off**
-- 預期公開榜約 **0.35**（社群同結構約 CV 0.343 → LB 0.353）
-- 加掛公開 in-style 池後，社群同結構約 **0.42–0.47**；分組 CV 會再高估約 0.03–0.04
+Notebook：`name_that_llm_submit.ipynb`（CPU、Internet off）。
 
-這是現階段在無 GPU、不複製他人 LoRA 權重的前提下，最能完整重現的一版。
+## 迭代 2（已併進 GPU 版）
 
-## 迭代 2：加料池權重與過濾（建議下一步，仍 CPU）
+公開 in-style 加料：掃描 `/kaggle/input` 的 csv／parquet，過濾 markdown、30–300 詞、Gemini em dash 等訓練裡不該出現的標點。權重與 LoRA 兩階段訓練一起用。
 
-1. 在 Kaggle 掛上公開加料資料（例如 prvsiyan 18 模型擴充集、OpenRouter harvest）。
-2. 只保留單段落、約 40–250 詞、無 markdown。
-3. Gemini 列若含 em dash，丟掉或降權（官方 train 裡 3.1／3.6／3.8 幾乎為 0）。
-4. 加料樣本權重 0.4–0.85，只在官方 train 上做分組 CV。
+## 迭代 3（已實作，請交這個）
 
-程式已會掃描 `/kaggle/input` 與 `data/external/`。這步不改架構，只改資料。
+Qwen3-8B-Base **4-bit LoRA**（r=16/alpha=32）分類頭：
 
-## 迭代 3：Qwen 編碼器 LoRA（衝銅牌／銀牌）
+1. 加料 1 epoch（lr 2e-4），再官方 train 2 epoch（lr 8e-5）
+2. 與 TF-IDF 機率 0.78 / 0.22 融合，再標點懲罰與 IPF 平衡
+3. 推論 fp16、max_len 384、按長度排序
 
-社群公開兩階段 LoRA（Qwen3-8B／14B，先在公開池再在官方 train 微調）公開榜約 **0.54–0.64**，與 n-gram 融合後更高。做法：
+- Notebook：`name_that_llm_gpu_submit.ipynb`
+- 環境：GPU **T4 x2**、Internet **off**
+- Base：Kaggle Model `qwen-lm/qwen-3` Transformers **8b-base**（Apache 2.0），不另訓、不斷網下載
+- 不加他人 LoRA checkpoint；adapter 在提交 notebook 裡現場訓練
+- 估計分組 CV ~**0.55**、公開榜 ~**0.50–0.58**（本機無 GPU，未實跑 LoRA CV）
 
-1. 手機驗證後開 **GPU T4 x2**，Internet **off**
-2. 把 Qwen3-8B/14B base 與自訓 LoRA 當 Input 掛上（或另開 training notebook 產出）
-3. 推論 fp16（T4 無 bf16），`max_len` 384，按長度排序
-4. 與本 CPU 模型做機率融合；可加 Sinkhorn／IPF 平衡
-
-本環境無 GPU，未在此訓練 LoRA，也不附他人 checkpoint。要上銅牌請在 Kaggle GPU 跑迭代 3，不要只交迭代 1。
+社群對照：8B LoRA 只吃 train → CV 0.443 / LB 0.466；加公開池 → CV 0.576 / LB 0.538。

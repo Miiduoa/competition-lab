@@ -45,3 +45,6 @@ jobs:
 
       - name: Synthetic Name That LLM pipeline
         run: python kaggle-name-that-llm/scripts/train_cv.py --smoke --folds 2
+
+      - name: Extra-passage cleaner
+        run: python kaggle-name-that-llm/scripts/test_extra.py

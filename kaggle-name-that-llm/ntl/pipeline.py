@@ -122,8 +122,13 @@ def load_extra_frames(roots: Sequence[str | Path]) -> pd.DataFrame:
                 continue
             if path.name in skip_names:
                 continue
+            low = str(path).lower()
+            if path.suffix.lower() in {".safetensors", ".bin", ".pt", ".pth", ".ckpt", ".gguf", ".npz"}:
+                continue
+            if any(m in low for m in ("/adapter/", "lora8b", "lora14b")):
+                continue
             try:
-                if path.stat().st_size > 80_000_000:
+                if path.stat().st_size > 120_000_000:
                     continue
             except OSError:
                 continue

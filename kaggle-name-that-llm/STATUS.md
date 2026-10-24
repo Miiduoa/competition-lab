@@ -1,5 +1,6 @@
 # 狀態
 
-- 本地可下載公開 train 鏡像並跑分組 CV。
-- Kaggle 公開榜尚未由本 repo 提交，沒有官方名次。
-- 預設 notebook 走 CPU；銅牌帶仍建議迭代 3（GPU LoRA）。
+- CPU TF-IDF：本地分組 CV 0.340（公開 train 鏡像）。
+- GPU LoRA：程式與提交 notebook 已寫好；本環境無 GPU，沒有自跑的 LoRA CV。
+- 正式提交請用 `name_that_llm_gpu_submit.ipynb`（T4 x2、Internet off、掛 Qwen3-8B-Base + 公開加料）。
+- 尚未向 Kaggle 交榜。

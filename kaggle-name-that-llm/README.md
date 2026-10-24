@@ -11,13 +11,14 @@
 
 ## 目前公開資訊（2026-10-24）
 
-- 公開榜榜首約 **0.700**（Hod Carriers）
-- 官方／熱門 starter（TF-IDF + 邏輯迴歸）公開約 **0.322**
-- 社群 CPU 字元+詞 TF-IDF 公開約 **0.353**
-- 公開兩階段 LoRA notebook 約 **0.59–0.64**
-- 參賽隊約 2,938；Featured 賽銅牌大約是前 10% 量級。以目前分數帶，**銅牌需要明顯高於純 n-gram**，實務上幾乎都要加料資料 + GPU 編碼器。
+- 公開榜榜首約 **0.703**（Hod Carriers）；前 49 名皆 ≥ **0.636**（Kaggle 只列出前 49）
+- 官方 starter 公開約 **0.322**；CPU TF-IDF 約 **0.353**
+- 公開兩階段 Qwen LoRA 約 **0.54–0.64**
+- 約 **2,928** 隊。Featured、1,000+ 隊的銅牌是 **前 10% ≈ 第 293 名**。第 293 名的分數未公布；合理估計約 **0.48–0.55**。要進銅牌帶必須 GPU LoRA + 公開加料，不能只交 CPU 0.34。
 
-## 作法（迭代 1，本 notebook）
+正式提交請用 **`name_that_llm_gpu_submit.ipynb`**（Qwen LoRA）。下面先記 CPU 基線，方便對照。
+
+## 作法（迭代 1，CPU 備援）
 
 1. **多視角 TF-IDF**（保留大小寫與標點）：字元 1–5 gram（含單一字元破折號／引號）、詞 1–2 gram、詞形 n-gram。
 2. **18 類邏輯迴歸**（`C=10`、`class_weight='balanced'`）。LinearSVC 在同一資料上較差（約 0.329），所以不用。
@@ -54,50 +55,62 @@ python scripts/train_cv.py --folds 5
 |------|------------------|
 | 只吃官方 2,699 列（本 notebook 預設） | **約 0.35**（對齊 CV 0.340；社群同結構 CV→LB 約 +0.01） |
 | 再掛公開 in-style 加料池 | 0.42–0.47（CV 可能再高 0.03） |
-| 迭代 3：Qwen LoRA + 加料 + 融合 | 0.54–0.64（銅牌帶） |
+| 迭代 3：Qwen LoRA + 加料 + TF-IDF 融合（**請交這個**） | 估計公開榜 **0.50–0.58**（對齊社群 8B LoRA+池 0.538，融合略高） |
 
-## Kaggle 執行設定
+本環境無 GPU，LoRA **沒有**本地 CV。估計見 `outputs/lora_estimate.json`。社群同結構：只吃 train 的 8B LoRA 分組 CV 0.443／公開 0.466；加公開池 CV 0.576／公開 0.538（CV 約高估 0.03–0.04）。
 
-本提交版選：
+## Kaggle 執行設定（銅牌／GPU 版）
 
-- **Internet：Off**（計分規定）
-- **Accelerator：None / CPU**
-- 時限 9 小時；此 CPU 管線在隱藏 4,000 列上應遠低於此
-- 可自由掛公開資料與預訓練模型；本 notebook 會掃描 `/kaggle/input` 裡帶有 18 類標籤的 csv／parquet
+交 **`name_that_llm_gpu_submit.ipynb`**：
 
-**不要**為這個版本開 GPU。Kaggle GPU 通常要**手機驗證**；那是迭代 3 才需要。
+- **Internet：Off**
+- **Accelerator：GPU T4 x2**（要手機驗證）
+- 時限 9 小時；4-bit LoRA 一輪加料 + 兩輪官方 train + 4,000 列推論，預估數小時
+- 權重不要現下：把公開 base 當 Kaggle Model 掛上
 
-讀檔路徑同時相容：
+### 必須掛上的 Input
 
-- `/kaggle/input/competitions/name-that-llm/test.csv`（Overview 寫法）
-- `/kaggle/input/name-that-llm/test.csv`（常見掛載）
+| 類型 | 名稱 | 路徑／用法 |
+|------|------|------------|
+| 競賽資料 | `name-that-llm` | `train.csv` / `test.csv` |
+| 預訓練模型（Apache 2.0） | Kaggle Model **`qwen-lm/qwen-3`** → Transformers → **8b-base** / 1 | 通常 `/kaggle/input/qwen-3/transformers/8b-base/1` |
+| 加料（至少一個） | 見下表 | 程式掃描 `/kaggle/input` 的 csv／parquet，**忽略**他人 LoRA adapter |
 
-## 在 Kaggle 提交（逐步）
+建議加料（皆公開、規則允許的外部資料）：
 
-1. 用**一個**帳號加入競賽並接受規則（2027-01-06 前）。
-2. New Notebook，掛 Name That LLM 競賽資料。
-3. 把 `name_that_llm_submit.ipynb` 上傳，或複製儲存格。
-4. Settings：**Internet off**，Accelerator **CPU**。
-5. Save Version → Save & Run All。互動階段 `test.csv` 只有 1–3 列，很快跑完不代表隱藏集也一樣快，但本 CPU 版沒問題。
-6. Viewer → Output → Submit `submission.parquet`。
-7. 每天每隊最多 5 次。截止前自選 2 個 Final Submission。
+- `nishantdahal/ntl-two-stage-lora`：只用其中的 **`pool_v1.parquet`**（約 3.5 萬列公開段落）。同資料集裡的 `lora8b_v1/`、`lora14b_v1/` **不會**被讀取。
+- `prvsiyan/prvsiyans-extended-name-that-llm-dataset`（18 類齊）
+- `seyitkaangunes/ntl-extra-api-passages`
+- `willrice/name-that-llm-openrouter-harvest`
 
-加料（可選）：在 Add Input 掛公開段落資料集，不必改程式。
+Gemini 列若帶 em dash 會被丟掉（官方 train 裡 3.1／3.6／3.8 幾乎為 0）。
+
+CPU 備援 notebook：`name_that_llm_submit.ipynb`（Internet off、無 GPU），本地 CV 0.340，不夠銅牌。
+
+## 在 Kaggle 提交（GPU 版逐步）
+
+1. 帳號完成**手機驗證**（否則沒有 GPU）。
+2. 加入競賽並接受規則（2027-01-06 前）。
+3. New Notebook，掛上表三類 Input。
+4. 上傳 `name_that_llm_gpu_submit.ipynb`。
+5. Settings：**Internet off**，Accelerator **GPU T4 x2**。
+6. Save Version → Save & Run All。互動階段 test 只有 1–3 列，計分時會重跑約 4,000 列。
+7. Output 交 `submission.parquet`。每天 5 次；截止前自選 2 個 Final。
 
 ## 目錄
 
 ```text
 kaggle-name-that-llm/
-├── name_that_llm_submit.ipynb   # 交給 Kaggle 的 notebook
+├── name_that_llm_gpu_submit.ipynb   # 交給 Kaggle 的 GPU 版（LoRA）
+├── name_that_llm_submit.ipynb       # CPU 備援
 ├── README.md
 ├── ITERATIONS.md
-├── requirements.txt
-├── ntl/                         # 本地訓練用套件
+├── ntl/
 ├── scripts/download_data.py
 ├── scripts/train_cv.py
-├── scripts/predict.py
-├── data/README.md               # 資料怎麼取得（csv 不進 git）
+├── data/README.md
 └── outputs/cv_results.json
+└── outputs/lora_estimate.json
 ```
 
 ## 誠實聲明

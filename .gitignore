@@ -38,3 +38,4 @@ venv/
 
 # OS
 .DS_Store
+outputs/cv_results_smoke.json
