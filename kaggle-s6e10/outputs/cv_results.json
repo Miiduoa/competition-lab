@@ -1,0 +1,126 @@
+{
+  "metric": "roc_auc",
+  "n_train": 699635,
+  "n_test": 299844,
+  "n_features_base": 188,
+  "folds": 5,
+  "seed": 42,
+  "used_original": true,
+  "smoke": false,
+  "single_oof": {
+    "lgbm": 0.9608902738750262,
+    "xgboost": 0.960927824482474,
+    "catboost": 0.9608335077531317
+  },
+  "blend_oof": {
+    "equal_prob": 0.9610526183683368,
+    "rank_avg_all": 0.9610572285148311,
+    "hillclimb": 0.9610526226062656,
+    "rank_avg_kept": 0.9610572285148311,
+    "single_xgboost": 0.960927824482474
+  },
+  "chosen_blend": "rank_avg_all",
+  "chosen_oof_auc": 0.9610572285148311,
+  "best_single": "xgboost",
+  "best_single_oof": 0.960927824482474,
+  "hillclimb_weights": {
+    "lgbm": 0.30729800522979983,
+    "xgboost": 0.345887514156106,
+    "catboost": 0.3468144806140941
+  },
+  "fold_scores": [
+    {
+      "model": "lgbm",
+      "fold": 0,
+      "auc": 0.9610815961080084,
+      "iter": 695
+    },
+    {
+      "model": "lgbm",
+      "fold": 1,
+      "auc": 0.9599230825683179,
+      "iter": 650
+    },
+    {
+      "model": "lgbm",
+      "fold": 2,
+      "auc": 0.9616713829031515,
+      "iter": 620
+    },
+    {
+      "model": "lgbm",
+      "fold": 3,
+      "auc": 0.9610273087711729,
+      "iter": 429
+    },
+    {
+      "model": "lgbm",
+      "fold": 4,
+      "auc": 0.9608252898551284,
+      "iter": 362
+    },
+    {
+      "model": "xgboost",
+      "fold": 0,
+      "auc": 0.9610356691927148,
+      "iter": 654
+    },
+    {
+      "model": "xgboost",
+      "fold": 1,
+      "auc": 0.9600385186675964,
+      "iter": 986
+    },
+    {
+      "model": "xgboost",
+      "fold": 2,
+      "auc": 0.9618012086032188,
+      "iter": 1094
+    },
+    {
+      "model": "xgboost",
+      "fold": 3,
+      "auc": 0.9609762042038665,
+      "iter": 785
+    },
+    {
+      "model": "xgboost",
+      "fold": 4,
+      "auc": 0.9608249941521794,
+      "iter": 715
+    },
+    {
+      "model": "catboost",
+      "fold": 0,
+      "auc": 0.9610334139588993,
+      "iter": 938
+    },
+    {
+      "model": "catboost",
+      "fold": 1,
+      "auc": 0.9599088370942639,
+      "iter": 1252
+    },
+    {
+      "model": "catboost",
+      "fold": 2,
+      "auc": 0.9614862585788341,
+      "iter": 1075
+    },
+    {
+      "model": "catboost",
+      "fold": 3,
+      "auc": 0.9610407763954119,
+      "iter": 1504
+    },
+    {
+      "model": "catboost",
+      "fold": 4,
+      "auc": 0.9607436441808839,
+      "iter": 845
+    }
+  ],
+  "submission_mean": 0.5000016675337843,
+  "elapsed_min": 37.29,
+  "recommended_file": "submission_blend.csv"
+}

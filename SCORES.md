@@ -1,4 +1,4 @@
-# 競賽分數表（據實｜更新 2026-09-18 下午）
+# 競賽分數表（據實｜更新 2026-10-24）
 
 > 僅記錄**已確認的公開分／提交狀態**。本地 CV／holdout 另標「非官方」。  
 > **無假造獎項、無虛構名次。**
@@ -7,14 +7,16 @@
 |---|------|------|------------|----------|----------|----------|------|
 | 1 | 臺鐵數據力 2026｜RailFlow-DSS | 臺鐵 | RailFlowDSS（一人） | 海選企劃已送出鎖定（2026-09-14） | — | — | 企劃參賽；非程式榜 |
 | 2 | Playground S6E9 Predicting EV Purchases | Kaggle | kuchinwei | Complete | **0.94540** | AUC↑ | v2＝v3 公開分相同；OOF 約 0.94540–0.94543 |
-| 3 | Kaggriculture | Kaggle | kuchinwei | Complete | **600.0** | 越高越好（賽制分） | v2／v3 公開分皆 600.0（以平台為準） |
-| 4 | DaT Parkinson's Challenge | DrivenData | demohan513 | Completed | **0.5591** | log loss↓ | 正式提交 322440；額度用完 |
-| 5 | AI CUP 2026 Autumn Task1 | AIdea | TEAM_10925 | 已報名／建模中 | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.21**（v3；非榜） |
-| 6 | AI CUP 2026 Autumn Task2 | AIdea | TEAM_10926 | 已報名／建模中（v4） | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.373**（v4 primary；非榜） |
+| 3 | Playground S6E10 Predicting Airline Satisfaction | Kaggle | kuchinwei | 建模中／可上傳 | （尚無公開榜） | AUC↑ | 本地 5-fold OOF **0.96106**（rank-average blend；**非官方榜**） |
+| 4 | Kaggriculture | Kaggle | kuchinwei | Complete | **600.0** | 越高越好（賽制分） | v2／v3 公開分皆 600.0（以平台為準） |
+| 5 | DaT Parkinson's Challenge | DrivenData | demohan513 | Completed | **0.5591** | log loss↓ | 正式提交 322440；額度用完 |
+| 6 | AI CUP 2026 Autumn Task1 | AIdea | TEAM_10925 | 已報名／建模中 | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.21**（v3；非榜） |
+| 7 | AI CUP 2026 Autumn Task2 | AIdea | TEAM_10926 | 已報名／建模中（v4） | （尚無官方測評） | 依簡章 | 約略本地 holdout ≈ **0.373**（v4 primary；非榜） |
 
 ## 連結
 
 - S6E9：https://www.kaggle.com/competitions/playground-series-s6e9  
+- S6E10：https://www.kaggle.com/competitions/playground-series-s6e10  
 - Kaggriculture：https://www.kaggle.com/competitions/kaggriculture  
 - Parkinson：https://www.drivendata.org/competitions/311/sfmn-parkinsons-challenge/  
 - 臺鐵：https://tr-data2026.trc.com.tw/  
